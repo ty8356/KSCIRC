@@ -1,8 +1,0 @@
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\bin\Debug\netcoreapp3.1\KSCIRC.Interfaces.deps.json
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\bin\Debug\netcoreapp3.1\KSCIRC.Interfaces.dll
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\bin\Debug\netcoreapp3.1\KSCIRC.Interfaces.pdb
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\obj\Debug\netcoreapp3.1\KSCIRC.Interfaces.AssemblyInfoInputs.cache
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\obj\Debug\netcoreapp3.1\KSCIRC.Interfaces.AssemblyInfo.cs
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\obj\Debug\netcoreapp3.1\KSCIRC.Interfaces.csproj.CoreCompileInputs.cache
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\obj\Debug\netcoreapp3.1\KSCIRC.Interfaces.dll
-C:\Users\ty835\iCloudDrive\Documents\source\KSCIRC\KSCIRC.Interfaces\obj\Debug\netcoreapp3.1\KSCIRC.Interfaces.pdb

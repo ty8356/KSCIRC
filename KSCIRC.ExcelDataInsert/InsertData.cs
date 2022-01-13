@@ -21,9 +21,9 @@ namespace KSCIRC.ExcelDataInsert
 
         public void Execute()
         {
-            Console.WriteLine("Retrieving unprocessed fyxvenpay records...");
+            Console.WriteLine("Uploading from excel file...");
 
-            
+
         }
     }
 }
