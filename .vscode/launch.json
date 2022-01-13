@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/KSCIRC.Api/bin/Debug/netcoreapp3.1/KSCIRC.Api.dll",
+            "program": "${workspaceFolder}/Api/bin/Debug/netcoreapp3.1/Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/KSCIRC.Api",
+            "cwd": "${workspaceFolder}/Api",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
@@ -40,9 +40,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/KSCIRC.ExcelDataInsert/bin/Debug/netcoreapp3.1/KSCIRC.ExcelDataInsert.dll",
+            "program": "${workspaceFolder}/ExcelDataInsert/bin/Debug/netcoreapp3.1/ExcelDataInsert.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/KSCIRC.ExcelDataInsert",
+            "cwd": "${workspaceFolder}/ExcelDataInsert",
             "stopAtEntry": false,
             "console": "internalConsole"
         }

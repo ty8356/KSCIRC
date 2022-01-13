@@ -21,9 +21,9 @@
   </ItemGroup> 
 
   <ItemGroup>
-    <ProjectReference Include="..\KSCIRC.Models/KSCIRC.Models.csproj" />
-    <ProjectReference Include="..\KSCIRC.Interfaces/KSCIRC.Interfaces.csproj" />
-    <ProjectReference Include="..\KSCIRC.Services/KSCIRC.Services.csproj" />
+    <ProjectReference Include="..\Models/Models.csproj" />
+    <ProjectReference Include="..\Interfaces/Interfaces.csproj" />
+    <ProjectReference Include="..\Services/Services.csproj" />
   </ItemGroup>
 
 </Project>
