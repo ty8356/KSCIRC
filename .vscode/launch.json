@@ -8,7 +8,7 @@
             "name": "Web API",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "api_build",
             "program": "${workspaceFolder}/Api/bin/Debug/netcoreapp3.1/Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Api",
@@ -45,6 +45,29 @@
             "cwd": "${workspaceFolder}/ExcelDataInsert",
             "stopAtEntry": false,
             "console": "internalConsole"
+        },
+        {
+            "name": "ng serve",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: start",
+            "url": "http://localhost:4200/"
+        },
+        {
+            "name": "ng test",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: test",
+            "url": "http://localhost:9876/debug.html"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Api/Web",
+            "configurations": [
+                "Web API",
+                "ng serve"
+            ]
         }
     ]
 }
