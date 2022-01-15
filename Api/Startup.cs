@@ -34,8 +34,7 @@ namespace KSCIRC.Api
         {
             services.AddControllers();
 
-            services.AddDbContext<KSCIRC_devContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
-            services.AddScoped(provider => new KSCIRC.Models.Mapper.MapperConfiguration().ConfigureAutoMapper(provider));
+            services.AddCors(); 
 
             services.AddMvc(config =>
             {
@@ -49,6 +48,9 @@ namespace KSCIRC.Api
             })
             .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
+            services.AddDbContext<KSCIRC_devContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+            services.AddScoped(provider => new KSCIRC.Models.Mapper.MapperConfiguration().ConfigureAutoMapper(provider));
+
             services.AddTransient<IGeneService, GeneService>();
         }
 
@@ -59,6 +61,8 @@ namespace KSCIRC.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 
