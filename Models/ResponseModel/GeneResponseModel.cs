@@ -9,7 +9,6 @@ namespace KSCIRC.Models.ResponseModel
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public PublicationResponseModel Publication { get; set; }
         public List<StatValueResponseModel> StatValues { get; set; }
     }
 }
