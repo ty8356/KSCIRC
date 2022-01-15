@@ -2,15 +2,13 @@
 
 <mat-form-field appearance="fill">
     <mat-label>Gene name</mat-label>
-    <input matInput id="search-term" [(ngModel)]="searchTerm" >
+    <input matInput id="search-term" [(ngModel)]="searchTerm" (keyup.enter)="onEnter()" >
 </mat-form-field>
 
 <h1>Results</h1>
-<p>{{searchTerm}}</p>
-<!-- <ul class="genes">
-    <li *ngFor="let gene of genes"
-      [class.selected]="hero === selectedHero"
-      (click)="onSelect(hero)">
-      <span class="badge">{{gene.ensId}}</span> {{gene.name}}
-    </li>
-  </ul> -->
+
+<ul>
+  <li *ngFor="let item of genes" >
+    <span>{{item.Name}}</span>
+  </li>
+</ul>

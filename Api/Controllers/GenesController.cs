@@ -4,6 +4,7 @@ using AutoMapper;
 using KSCIRC.Interfaces.Services;
 using KSCIRC.Models.ErrorHandling.Exceptions;
 using KSCIRC.Models.ResponseModel;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

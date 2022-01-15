@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SearchComponent } from './search/search.component';
     BrowserAnimationsModule,
     FormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
