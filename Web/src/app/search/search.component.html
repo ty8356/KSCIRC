@@ -1,14 +1,128 @@
-<h1>Search for a gene</h1>
+<h1>Search</h1>
 
-<mat-form-field appearance="fill">
-    <mat-label>Gene name</mat-label>
-    <input matInput id="search-term" [(ngModel)]="searchTerm" (keyup.enter)="onEnter()" >
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Gene name</mat-label>
+  <input type="text"
+         placeholder=""
+         aria-label="GeneName"
+         matInput
+         [formControl]="geneSearchControl"
+         [matAutocomplete]="auto"
+         #trigger="matAutocompleteTrigger"
+         (keyup)="onKeyUp()"
+         (keyup.enter)="onEnter(); trigger.closePanel()"
+         [(ngModel)]="searchTerm"
+         onfocus="this.select()">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onOptionClick()">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
 </mat-form-field>
 
 <h1>Results</h1>
 
-<ul>
-  <li *ngFor="let item of genes" >
-    <span>{{item.Name}}</span>
-  </li>
-</ul>
+<mat-tab-group>
+  <mat-tab label="All">
+    <ng-template matTabContent>
+      <ngx-charts-line-chart
+        [view]="view"
+        [scheme]="'flame'"
+        [legend]="lineLegend"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [xAxisTicks]="xAxisTicks"
+        [timeline]="timeline"
+        [results]="allData"
+        >
+      </ngx-charts-line-chart>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="IP">
+    <ng-template matTabContent>
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="'flame'"
+        [results]="ipData"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="barLegend"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+      </ngx-charts-bar-vertical>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="IN">
+    <ng-template matTabContent>
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="'flame'"
+        [results]="inData"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="barLegend"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+      </ngx-charts-bar-vertical>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Enrichment">
+    <ng-template matTabContent>
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="'flame'"
+        [results]="enrichmentData"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="barLegend"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+      </ngx-charts-bar-vertical>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Interaction">
+    <ng-template matTabContent>
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="'flame'"
+        [results]="interactionData"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="barLegend"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+      </ngx-charts-bar-vertical>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<h1>Details</h1>
+
+<p>Ens Id: <span *ngIf="this.selectedGene.EnsId != 0">{{selectedGene.EnsId}}</span></p>
+<p>Name: {{selectedGene.Name}}</p>
+<p>Description: {{selectedGene.Description}}</p>
