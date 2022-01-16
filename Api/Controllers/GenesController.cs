@@ -36,5 +36,14 @@ namespace KSCIRC.Api.Controllers
             
             return Ok(_mapper.Map<List<GeneResponseModel>>(genes));
         }
+
+        [HttpGet("{name}/stat-values")]
+        public async Task<IActionResult> GetStatValues(string name)
+        {
+            var statValues = await _geneService
+                .GetStatValues(name);
+            
+            return Ok(_mapper.Map<List<StatValueResponseModel>>(statValues));
+        }
     }
 }

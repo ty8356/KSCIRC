@@ -6,8 +6,6 @@ namespace KSCIRC.Models.ResponseModel
     public class StatValueResponseModel
     {
         public int Id { get; set; }
-        public int GeneId { get; set; }
-        public int PublicationId { get; set; }
         public int? DaysPostInjury { get; set; }
         public decimal? InputValue { get; set; }
         public decimal? InputQvalue { get; set; }
