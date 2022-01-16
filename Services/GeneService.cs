@@ -22,6 +22,7 @@ namespace KSCIRC.Services
         {
             var genes = _context
                 .Genes
+                .Include(x => x.StatValues)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
@@ -34,11 +35,24 @@ namespace KSCIRC.Services
                     .Where(x => x
                         .Name
                         .ToUpper()
-                        .Contains(name));
+                        .StartsWith(name));
             }
 
             return await genes
                 .ToListAsync();
+        }
+
+        public async Task<List<StatValue>> GetStatValues(string name)
+        {
+            var gene = await _context
+                .Genes
+                .Include(x => x.StatValues)
+                .Where(x => x.Name == name)
+                .FirstOrDefaultAsync();
+
+            return gene
+                .StatValues
+                .ToList();
         }
     }
 }

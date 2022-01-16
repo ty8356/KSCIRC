@@ -7,5 +7,6 @@ namespace KSCIRC.Interfaces.Services
     public interface IGeneService
     {
         public Task<List<Gene>> Search(string name);
+        public Task<List<StatValue>> GetStatValues(string name);
     }
 }
