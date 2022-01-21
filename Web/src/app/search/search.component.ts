@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -19,6 +19,11 @@ export class SearchComponent implements OnInit {
   interactionData: any[] = [];
   ipData: any[] = [];
   inData: any[] = [];
+
+  enrichmentColors: any[] = [];
+  interactionColors: any[] = [];
+  ipColors: any[] = [];
+  inColors: any[] = [];
 
   view: [number, number] = [800, 300];
   xAxisTicks: any[] = [ "2", "10", "42" ]
@@ -115,37 +120,49 @@ export class SearchComponent implements OnInit {
         statValues.forEach(x => {
           enrichment.push({
             "name": x.DaysPostInjury,
-            "value": x.EnrichmentValue
+            "value": x.EnrichmentValue,
+            "extra": {
+              "tooltip": x.EnrichmentQvalue
+            }
           });
           interaction.push({
             "name": x.DaysPostInjury,
-            "value": x.InteractionValue
+            "value": x.InteractionValue,
+            "extra": {
+              "tooltip": x.InteractionQvalue
+            }
           });
           input.push({
             "name": x.DaysPostInjury,
-            "value": x.InputValue
+            "value": x.InputValue,
+            "extra": {
+              "tooltip": x.InputQvalue
+            }
           });
           ip.push({
             "name": x.DaysPostInjury,
-            "value": x.ImmunoprecipitateValue
+            "value": x.ImmunoprecipitateValue,
+            "extra": {
+              "tooltip": x.ImmunoprecipitateQvalue
+            }
           });
         });
 
         this.allData = [
           {
-            "name": "Enrichment",
+            "name": "OL Enrichment",
             "series": enrichment
           },
           {
-            "name": "Interaction",
+            "name": "Change Over Time",
             "series": interaction
           },
           {
-            "name": "IN",
+            "name": "Total mRNA",
             "series": input
           },
           {
-            "name": "IP",
+            "name": "OL mRNA",
             "series": ip
           }
         ];
@@ -155,6 +172,61 @@ export class SearchComponent implements OnInit {
         this.ipData = ip.sort((a, b) => (a.name > b.name) ? 1 : -1);
         this.inData = input.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
+        this.enrichmentData.forEach(x => {
+          if (x.extra.tooltip <= 0.5) {
+            this.enrichmentColors.push({
+              "name": x.name.toString(),
+              "value": "#AD0000"
+            });
+          } else {
+            this.enrichmentColors.push({
+              "name": x.name.toString(),
+              "value": "#A9A9A9"
+            });
+          }
+        });
+
+        this.interactionData.forEach(x => {
+          if (x.extra.tooltip <= 0.5) {
+            this.interactionColors.push({
+              "name": x.name.toString(),
+              "value": "#AD0000"
+            });
+          } else {
+            this.interactionColors.push({
+              "name": x.name.toString(),
+              "value": "#A9A9A9"
+            });
+          }
+        });
+
+        this.ipData.forEach(x => {
+          if (x.extra.tooltip <= 0.5) {
+            this.ipColors.push({
+              "name": x.name.toString(),
+              "value": "#AD0000"
+            });
+          } else {
+            this.ipColors.push({
+              "name": x.name.toString(),
+              "value": "#A9A9A9"
+            });
+          }
+        });
+
+        this.inData.forEach(x => {
+          if (x.extra.tooltip <= 0.5) {
+            this.inColors.push({
+              "name": x.name.toString(),
+              "value": "#AD0000"
+            });
+          } else {
+            this.inColors.push({
+              "name": x.name.toString(),
+              "value": "#A9A9A9"
+            });
+          }
+        });
       });
   }
 

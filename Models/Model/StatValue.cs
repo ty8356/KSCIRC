@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace KSCIRC.Models.Model
 {
     public partial class StatValue
@@ -19,6 +17,8 @@ namespace KSCIRC.Models.Model
         public decimal? EnrichmentQvalue { get; set; }
         public decimal? InteractionValue { get; set; }
         public decimal? InteractionQvalue { get; set; }
+        public decimal? Interaction2x4Value { get; set; }
+        public decimal? Interaction2x4Qvalue { get; set; }
 
         public virtual Gene Gene { get; set; }
         public virtual Publication Publication { get; set; }
