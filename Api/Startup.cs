@@ -48,7 +48,7 @@ namespace KSCIRC.Api
             })
             .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
-            services.AddDbContext<KSCIRC_devContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDb")));
+            services.AddDbContext<hetmanlabdbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KSCIRCEntities")));
             services.AddScoped(provider => new KSCIRC.Models.Mapper.MapperConfiguration().ConfigureAutoMapper(provider));
 
             services.AddTransient<IGeneService, GeneService>();

@@ -1,19 +1,16 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Metadata;
-
-#nullable disable
 
 namespace KSCIRC.Models.Model
 {
-    public partial class KSCIRC_devContext : DbContext
+    public partial class hetmanlabdbContext : DbContext
     {
-        public KSCIRC_devContext()
+        public hetmanlabdbContext()
         {
         }
 
-        public KSCIRC_devContext(DbContextOptions<KSCIRC_devContext> options)
+        public hetmanlabdbContext(DbContextOptions<hetmanlabdbContext> options)
             : base(options)
         {
         }
@@ -31,16 +28,14 @@ namespace KSCIRC.Models.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Gene>(entity =>
             {
                 entity.ToTable("Gene");
 
                 entity.Property(e => e.EnsId)
                     .IsRequired()
-                    .HasMaxLength(18)
-                    .HasColumnName("Ens_Id");
+                    .HasColumnName("Ens_Id")
+                    .HasMaxLength(18);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -59,26 +54,32 @@ namespace KSCIRC.Models.Model
                 entity.ToTable("StatValue");
 
                 entity.Property(e => e.EnrichmentQvalue)
-                    .HasColumnType("decimal(20, 15)")
-                    .HasColumnName("EnrichmentQValue");
+                    .HasColumnName("EnrichmentQValue")
+                    .HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.EnrichmentValue).HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.ImmunoprecipitateQvalue)
-                    .HasColumnType("decimal(20, 15)")
-                    .HasColumnName("ImmunoprecipitateQValue");
+                    .HasColumnName("ImmunoprecipitateQValue")
+                    .HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.ImmunoprecipitateValue).HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.InputQvalue)
-                    .HasColumnType("decimal(20, 15)")
-                    .HasColumnName("InputQValue");
+                    .HasColumnName("InputQValue")
+                    .HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.InputValue).HasColumnType("decimal(20, 15)");
 
+                entity.Property(e => e.Interaction2x4Qvalue)
+                    .HasColumnName("Interaction2x4QValue")
+                    .HasColumnType("decimal(20, 15)");
+
+                entity.Property(e => e.Interaction2x4Value).HasColumnType("decimal(20, 15)");
+
                 entity.Property(e => e.InteractionQvalue)
-                    .HasColumnType("decimal(20, 15)")
-                    .HasColumnName("InteractionQValue");
+                    .HasColumnName("InteractionQValue")
+                    .HasColumnType("decimal(20, 15)");
 
                 entity.Property(e => e.InteractionValue).HasColumnType("decimal(20, 15)");
 

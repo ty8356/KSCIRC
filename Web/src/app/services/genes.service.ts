@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs';
 import { Gene } from '../models/gene';
 import { StatValue } from '../models/statValue';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 providedIn: 'any'
@@ -10,15 +11,17 @@ providedIn: 'any'
 
 export class GenesService {
 
+    baseUrl: string = "";
+
     constructor(
         private http: HttpClient
     ) {
-        
+        this.baseUrl = `http://localhost:5000/genes`;
     }
 
     searchGenes(name: string): Observable<Gene[]> {
 
-        let url = `http://localhost:5000/api/genes`;
+        let url = this.baseUrl;
         if (name != "" && name != null && name != 'undefined') {
             url += '?name=' + name;
         }
@@ -29,7 +32,7 @@ export class GenesService {
 
     getStatValuesByGene(name: string): Observable<StatValue[]> {
 
-        let url = `http://localhost:5000/api/genes/` + name + `/stat-values`;
+        let url = this.baseUrl + `/` + name + `/stat-values`;
         
         return this.http.get<StatValue[]>(url);
         

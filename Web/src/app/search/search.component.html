@@ -40,10 +40,15 @@
         [timeline]="timeline"
         [results]="allData"
         >
+        <ng-template #tooltipTemplate let-model="model">
+          {{model.value}}
+          <br>
+          q = {{model.extra.tooltip}}
+        </ng-template>
       </ngx-charts-line-chart>
     </ng-template>
   </mat-tab>
-  <mat-tab label="IP">
+  <mat-tab label="OL mRNA">
     <ng-template matTabContent>
       <ngx-charts-bar-vertical
         [view]="view"
@@ -58,11 +63,17 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [customColors]="ipColors"
         >
+        <ng-template #tooltipTemplate let-model="model">
+          {{model.value}}
+          <br>
+          q = {{model.extra.tooltip}}
+        </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
   </mat-tab>
-  <mat-tab label="IN">
+  <mat-tab label="Total mRNA">
     <ng-template matTabContent>
       <ngx-charts-bar-vertical
         [view]="view"
@@ -77,11 +88,17 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [customColors]="inColors"
         >
+        <ng-template #tooltipTemplate let-model="model">
+          {{model.value}}
+          <br>
+          q = {{model.extra.tooltip}}
+        </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Enrichment">
+  <mat-tab label="OL Enrichment">
     <ng-template matTabContent>
       <ngx-charts-bar-vertical
         [view]="view"
@@ -96,11 +113,17 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [customColors]="enrichmentColors"
         >
+        <ng-template #tooltipTemplate let-model="model">
+          {{model.value}}
+          <br>
+          q = {{model.extra.tooltip}}
+        </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Interaction">
+  <mat-tab label="Change Over Time">
     <ng-template matTabContent>
       <ngx-charts-bar-vertical
         [view]="view"
@@ -115,7 +138,13 @@
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
+        [customColors]="interactionColors"
         >
+        <ng-template #tooltipTemplate let-model="model">
+          {{model.value}}
+          <br>
+          q = {{model.extra.tooltip}}
+        </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
   </mat-tab>

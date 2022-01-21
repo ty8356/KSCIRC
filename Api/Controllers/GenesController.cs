@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace KSCIRC.Api.Controllers
 {
     [ApiController]
-    [Route("api/genes")]
+    [Route("genes")]
     public class GenesController : ControllerBase
     {
         private readonly ILogger<GenesController> _logger;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace KSCIRC.Models.Model
 {
     public partial class Gene

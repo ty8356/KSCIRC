@@ -11,11 +11,11 @@ namespace KSCIRC.ExcelDataInsert
 {
     public class InsertData
     {
-        private readonly KSCIRC_devContext _context;
+        private readonly hetmanlabdbContext _context;
         private readonly ApplicationSettings _applicationSettings;
 
         public InsertData(
-            KSCIRC_devContext context
+            hetmanlabdbContext context
             ,IOptions<ApplicationSettings> applicationSettings
             )
         {
@@ -27,19 +27,19 @@ namespace KSCIRC.ExcelDataInsert
         public void Execute()
         {
             var publicationId = 1;
-            // Console.WriteLine("Creating default publication...");
+            Console.WriteLine("Creating default publication...");
 
-            // var pub = new Publication
-            // {
-            //     Title = "RT Contamination"
-            // };
+            var pub = new Publication
+            {
+                Title = "RT Contamination"
+            };
 
-            // _context.Publications.Add(pub);
-            // _context.SaveChanges();
+            _context.Publications.Add(pub);
+            _context.SaveChanges();
 
-            // publicationId = pub.Id;
+            publicationId = pub.Id;
 
-            // Console.WriteLine("Default publication created.");
+            Console.WriteLine("Default publication created.");
 
             Console.WriteLine("Uploading from excel file...");
 
@@ -71,7 +71,7 @@ namespace KSCIRC.ExcelDataInsert
 
                     for (int i = 2; i <= totalRows; i++)
                     {
-                        Console.WriteLine($"Adding gene {i - 1} of {totalRows}.");
+                        Console.WriteLine($"Adding gene {i - 1} of {totalRows - 1}.");
 
                         var gene = new Gene
                         {
@@ -104,8 +104,15 @@ namespace KSCIRC.ExcelDataInsert
                         var ip_vs_in_42dpi = worksheet.Cells[i, columns["log2fc_ipvsin_42dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_ipvsin_42dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_ipvsin_42dpi"]]?.Value) : null;
                         var ip_vs_in_q_42dpi = worksheet.Cells[i, columns["q_value_ipvsin_42dpi"]]?.Value != null && worksheet.Cells[i, columns["q_value_ipvsin_42dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_ipvsin_42dpi"]]?.Value) : null;
 
-                        var interaction = worksheet.Cells[i, columns["log2fc_2x4"]]?.Value != null && worksheet.Cells[i, columns["log2fc_2x4"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_2x4"]]?.Value) : null;
-                        var interaction_q = worksheet.Cells[i, columns["q_value_2x4"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x4"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x4"]]?.Value) : null;
+                        var interaction_2dpi = worksheet.Cells[i, columns["log2fc_2x2_2dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_2x2_2dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_2x2_2dpi"]]?.Value) : null;
+                        var interaction_q_2dpi = worksheet.Cells[i, columns["q_value_2x2_2dpi"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x2_2dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x2_2dpi"]]?.Value) : null;
+                        var interaction_10dpi = worksheet.Cells[i, columns["log2fc_2x2_10dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_2x2_10dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_2x2_10dpi"]]?.Value) : null;
+                        var interaction_q_10dpi = worksheet.Cells[i, columns["q_value_2x2_10dpi"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x2_10dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x2_10dpi"]]?.Value) : null;
+                        var interaction_42dpi = worksheet.Cells[i, columns["log2fc_2x2_42dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_2x2_42dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_2x2_42dpi"]]?.Value) : null;
+                        var interaction_q_42dpi = worksheet.Cells[i, columns["q_value_2x2_42dpi"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x2_42dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x2_42dpi"]]?.Value) : null;
+
+                        var interaction_2x4 = worksheet.Cells[i, columns["log2fc_2x4"]]?.Value != null && worksheet.Cells[i, columns["log2fc_2x4"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_2x4"]]?.Value) : null;
+                        var interaction_2x4_q = worksheet.Cells[i, columns["q_value_2x4"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x4"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x4"]]?.Value) : null;
 
                         var statValues = new List<StatValue>();
 
@@ -120,8 +127,10 @@ namespace KSCIRC.ExcelDataInsert
                             ImmunoprecipitateQvalue = ip_q_2dpi,
                             EnrichmentValue = ip_vs_in_2dpi,
                             EnrichmentQvalue = ip_vs_in_q_2dpi,
-                            InteractionValue = interaction,
-                            InteractionQvalue = interaction_q
+                            InteractionValue = interaction_2dpi,
+                            InteractionQvalue = interaction_q_2dpi,
+                            Interaction2x4Value = interaction_2x4,
+                            Interaction2x4Qvalue = interaction_2x4_q
                         });
 
                         statValues.Add(new StatValue
@@ -135,8 +144,10 @@ namespace KSCIRC.ExcelDataInsert
                             ImmunoprecipitateQvalue = ip_q_10dpi,
                             EnrichmentValue = ip_vs_in_10dpi,
                             EnrichmentQvalue = ip_vs_in_q_10dpi,
-                            InteractionValue = interaction,
-                            InteractionQvalue = interaction_q
+                            InteractionValue = interaction_10dpi,
+                            InteractionQvalue = interaction_q_10dpi,
+                            Interaction2x4Value = interaction_2x4,
+                            Interaction2x4Qvalue = interaction_2x4_q
                         });
 
                         statValues.Add(new StatValue
@@ -150,8 +161,10 @@ namespace KSCIRC.ExcelDataInsert
                             ImmunoprecipitateQvalue = ip_q_42dpi,
                             EnrichmentValue = ip_vs_in_42dpi,
                             EnrichmentQvalue = ip_vs_in_q_42dpi,
-                            InteractionValue = interaction,
-                            InteractionQvalue = interaction_q
+                            InteractionValue = interaction_42dpi,
+                            InteractionQvalue = interaction_q_42dpi,
+                            Interaction2x4Value = interaction_2x4,
+                            Interaction2x4Qvalue = interaction_2x4_q
                         });
 
                         _context.StatValues.AddRange(statValues);

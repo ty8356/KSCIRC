@@ -73,8 +73,8 @@ namespace KSCIRC.ExcelDataInsert
             services.AddSingleton<IConfiguration>(_ => { return Configuration; });
 
             //context and storage
-            var connectionString = Configuration.GetConnectionString("LocalDb");
-            services.AddDbContext<KSCIRC_devContext>(options => options.UseSqlServer(connectionString));
+            var connectionString = Configuration.GetConnectionString("KSCIRCEntities");
+            services.AddDbContext<hetmanlabdbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddScoped<InsertData, InsertData>();
 

@@ -39,7 +39,7 @@
             "name": "Excel Data Insert Console App",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "api_build",
             "program": "${workspaceFolder}/ExcelDataInsert/bin/Debug/netcoreapp3.1/ExcelDataInsert.dll",
             "args": [],
             "cwd": "${workspaceFolder}/ExcelDataInsert",

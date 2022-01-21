@@ -9,10 +9,10 @@ namespace KSCIRC.Services
 {
     public class GeneService : IGeneService
     {
-        private readonly KSCIRC_devContext _context;
+        private readonly hetmanlabdbContext _context;
 
         public GeneService(
-            KSCIRC_devContext context
+            hetmanlabdbContext context
         )
         {
             _context = context;
