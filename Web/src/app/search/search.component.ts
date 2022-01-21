@@ -172,6 +172,7 @@ export class SearchComponent implements OnInit {
         this.ipData = ip.sort((a, b) => (a.name > b.name) ? 1 : -1);
         this.inData = input.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
+        this.enrichmentColors = [];
         this.enrichmentData.forEach(x => {
           if (x.extra.tooltip <= 0.5) {
             this.enrichmentColors.push({
@@ -186,6 +187,7 @@ export class SearchComponent implements OnInit {
           }
         });
 
+        this.interactionColors = [];
         this.interactionData.forEach(x => {
           if (x.extra.tooltip <= 0.5) {
             this.interactionColors.push({
@@ -200,6 +202,7 @@ export class SearchComponent implements OnInit {
           }
         });
 
+        this.ipColors = [];
         this.ipData.forEach(x => {
           if (x.extra.tooltip <= 0.5) {
             this.ipColors.push({
@@ -214,6 +217,7 @@ export class SearchComponent implements OnInit {
           }
         });
 
+        this.inColors = [];
         this.inData.forEach(x => {
           if (x.extra.tooltip <= 0.5) {
             this.inColors.push({
