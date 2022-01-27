@@ -16,7 +16,8 @@ export class GenesService {
     constructor(
         private http: HttpClient
     ) {
-        this.baseUrl = `api/genes`;
+        // this.baseUrl = `api/genes`;
+        this.baseUrl = `http://localhost:5000/genes`;
     }
 
     searchGenes(name: string): Observable<Gene[]> {
@@ -35,6 +36,14 @@ export class GenesService {
         let url = this.baseUrl + `/` + name + `/stat-values`;
         
         return this.http.get<StatValue[]>(url);
+        
+    }
+
+    downloadAllFile() {
+
+        let url = this.baseUrl + `/download-all`;
+        
+        return this.http.get(url, { responseType: 'blob' });
         
     }
 }

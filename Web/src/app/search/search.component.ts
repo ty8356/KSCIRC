@@ -106,16 +106,29 @@ export class SearchComponent implements OnInit {
     this.onKeyUp();
   }
 
-  private setSelectedGene(gene: Gene) {
-    this.selectedGene = gene;
-  }
-
   toggleSigLegend($event: any) {
     if ($event.index == 0) {
       this.showSigLegend = false;
     } else {
       this.showSigLegend = true;
     }
+  }
+
+  downloadAll() {
+    this.genesService.downloadAllFile().subscribe((data: any) => {
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display:none;');
+      document.body.appendChild(a);
+      a.download = 'Log2FC_Qvalue_Merged_ForAllResults';
+      a.href = URL.createObjectURL(data);
+      a.target = '_blank';
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
+
+  private setSelectedGene(gene: Gene) {
+    this.selectedGene = gene;
   }
 
   private populateGraph() {
