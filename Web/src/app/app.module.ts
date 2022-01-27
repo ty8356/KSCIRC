@@ -12,6 +12,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ScaleLinear, ScaleBand, ScalePoint, ScaleTime } from 'd3-scale';
 import { BaseType } from 'd3-selection';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     ReactiveFormsModule,
     MatAutocompleteModule,
     NgxChartsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
