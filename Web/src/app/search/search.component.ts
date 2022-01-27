@@ -45,6 +45,8 @@ export class SearchComponent implements OnInit {
 
   // END GRAPH \\
 
+  showSigLegend: boolean = false;
+
   geneSearchControl = new FormControl();
   options: string[] = [ ];
   filteredOptions: Observable<string[]>;
@@ -108,6 +110,14 @@ export class SearchComponent implements OnInit {
     this.selectedGene = gene;
   }
 
+  toggleSigLegend($event: any) {
+    if ($event.index == 0) {
+      this.showSigLegend = false;
+    } else {
+      this.showSigLegend = true;
+    }
+  }
+
   private populateGraph() {
     this.genesService.getStatValuesByGene(this.searchTerm)
       .subscribe(statValues => {
@@ -120,32 +130,34 @@ export class SearchComponent implements OnInit {
         statValues.forEach(x => {
           enrichment.push({
             "name": x.DaysPostInjury,
-            "value": x.EnrichmentValue,
+            "value": x.EnrichmentValue?.toFixed(3),
             "extra": {
-              "tooltip": x.EnrichmentQvalue
+              "tooltip": x.EnrichmentQvalue?.toFixed(3)
             }
           });
-          interaction.push({
-            "name": x.DaysPostInjury,
-            "value": x.InteractionValue,
-            "extra": {
-              "tooltip": x.InteractionQvalue
-            }
-          });
-          input.push({
-            "name": x.DaysPostInjury,
-            "value": x.InputValue,
-            "extra": {
-              "tooltip": x.InputQvalue
-            }
-          });
-          ip.push({
-            "name": x.DaysPostInjury,
-            "value": x.ImmunoprecipitateValue,
-            "extra": {
-              "tooltip": x.ImmunoprecipitateQvalue
-            }
-          });
+          if (x.DaysPostInjury != 0) {
+            interaction.push({
+              "name": x.DaysPostInjury,
+              "value": x.InteractionValue?.toFixed(3),
+              "extra": {
+                "tooltip": x.InteractionQvalue?.toFixed(3)
+              }
+            });
+            input.push({
+              "name": x.DaysPostInjury,
+              "value": x.InputValue?.toFixed(3),
+              "extra": {
+                "tooltip": x.InputQvalue?.toFixed(3)
+              }
+            });
+            ip.push({
+              "name": x.DaysPostInjury,
+              "value": x.ImmunoprecipitateValue?.toFixed(3),
+              "extra": {
+                "tooltip": x.ImmunoprecipitateQvalue?.toFixed(3)
+              }
+            });
+          }
         });
 
         this.allData = [

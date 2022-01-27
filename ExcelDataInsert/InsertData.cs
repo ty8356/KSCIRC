@@ -26,7 +26,7 @@ namespace KSCIRC.ExcelDataInsert
         // NOTE: tons of hard coding because this is a one-time thing
         public void Execute()
         {
-            var publicationId = 1;
+            var publicationId = 2;
             Console.WriteLine("Creating default publication...");
 
             var pub = new Publication
@@ -69,7 +69,7 @@ namespace KSCIRC.ExcelDataInsert
                     var headers = worksheet.GetHeaderColumns();
                     var columns = headers.ReadColumnNumbers();
 
-                    for (int i = 2; i <= totalRows; i++)
+                    for (int i = 17150; i <= totalRows; i++)
                     {
                         Console.WriteLine($"Adding gene {i - 1} of {totalRows - 1}.");
 
@@ -97,6 +97,8 @@ namespace KSCIRC.ExcelDataInsert
                         var ip_42dpi = worksheet.Cells[i, columns["log2fc_ip_42dpivsnaive"]]?.Value != null && worksheet.Cells[i, columns["log2fc_ip_42dpivsnaive"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_ip_42dpivsnaive"]]?.Value) : null;
                         var ip_q_42dpi = worksheet.Cells[i, columns["q_value_ip_42dpivsnaive"]]?.Value != null && worksheet.Cells[i, columns["q_value_ip_42dpivsnaive"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_ip_42dpivsnaive"]]?.Value) : null;
 
+                        var ip_vs_in_0dpi = worksheet.Cells[i, columns["log2fc_ipvsin_naive"]]?.Value != null && worksheet.Cells[i, columns["log2fc_ipvsin_naive"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_ipvsin_naive"]]?.Value) : null;
+                        var ip_vs_in_q_0dpi = worksheet.Cells[i, columns["q_value_ipvsin_naive"]]?.Value != null && worksheet.Cells[i, columns["q_value_ipvsin_naive"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_ipvsin_naive"]]?.Value) : null;
                         var ip_vs_in_2dpi = worksheet.Cells[i, columns["log2fc_ipvsin_02dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_ipvsin_02dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_ipvsin_02dpi"]]?.Value) : null;
                         var ip_vs_in_q_2dpi = worksheet.Cells[i, columns["q_value_ipvsin_02dpi"]]?.Value != null && worksheet.Cells[i, columns["q_value_ipvsin_02dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_ipvsin_02dpi"]]?.Value) : null;
                         var ip_vs_in_10dpi = worksheet.Cells[i, columns["log2fc_ipvsin_10dpi"]]?.Value != null && worksheet.Cells[i, columns["log2fc_ipvsin_10dpi"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["log2fc_ipvsin_10dpi"]]?.Value) : null;
@@ -115,6 +117,15 @@ namespace KSCIRC.ExcelDataInsert
                         var interaction_2x4_q = worksheet.Cells[i, columns["q_value_2x4"]]?.Value != null && worksheet.Cells[i, columns["q_value_2x4"]]?.Value?.ToString() != "NA" ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["q_value_2x4"]]?.Value) : null;
 
                         var statValues = new List<StatValue>();
+
+                        statValues.Add(new StatValue
+                        {
+                            GeneId = gene.Id,
+                            PublicationId = publicationId,
+                            DaysPostInjury = 0,
+                            EnrichmentValue = ip_vs_in_0dpi,
+                            EnrichmentQvalue = ip_vs_in_q_0dpi
+                        });
 
                         statValues.Add(new StatValue
                         {
