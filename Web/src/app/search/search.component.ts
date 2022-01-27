@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
   // END GRAPH \\
 
   showSigLegend: boolean = false;
+  showReadCounts: boolean = false;
 
   geneSearchControl = new FormControl();
   options: string[] = [ ];

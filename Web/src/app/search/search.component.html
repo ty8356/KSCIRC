@@ -23,10 +23,7 @@
 <div class="one-line-header">
   <h1>Results</h1>
 
-  <ul *ngIf="showSigLegend" class="legend">
-    <li><span class="significant"></span> Significant</li>
-    <li><span class="insignificant"></span> Insignificant</li>
-  </ul>
+  <mat-slide-toggle color="primary" [(ngModel)]="showReadCounts"></mat-slide-toggle>
 </div>
 
 <mat-tab-group (selectedTabChange)="toggleSigLegend($event)">
@@ -159,6 +156,11 @@
 
 <div class="one-line-header">
   <h1>Details</h1>
+
+  <ul *ngIf="showSigLegend" class="legend">
+    <li><span class="significant"></span> Significant</li>
+    <li><span class="insignificant"></span> Insignificant</li>
+  </ul>
 
   <button mat-raised-button (click)="downloadAll()">Download Source</button>
 </div>
