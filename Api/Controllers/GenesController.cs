@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using KSCIRC.Interfaces.Services;
@@ -6,6 +7,7 @@ using KSCIRC.Models.ErrorHandling.Exceptions;
 using KSCIRC.Models.ResponseModel;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 
 namespace KSCIRC.Api.Controllers
@@ -44,6 +46,37 @@ namespace KSCIRC.Api.Controllers
                 .GetStatValues(name);
             
             return Ok(_mapper.Map<List<StatValueResponseModel>>(statValues));
+        }
+
+        [HttpGet("download-all"), DisableRequestSizeLimit]
+        public async Task<IActionResult> DownloadSourceFile()
+        {
+            var filePath = Path.Combine("C:\\kscirc\\source", "Log2FC_Qvalue_Merged_ForAllResults.xlsx");
+            if (!System.IO.File.Exists(filePath))
+                throw new HttpNotFoundException("File not found.");
+
+            var memory = new MemoryStream();
+            await using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+            
+            return File(memory, GetContentType(filePath), filePath);
+        }
+
+        private string GetContentType(string path)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            string contentType;
+                    
+            if (!provider.TryGetContentType(path, out contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+                    
+            return contentType;
         }
     }
 }
