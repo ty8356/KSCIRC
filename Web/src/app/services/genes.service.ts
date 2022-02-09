@@ -46,4 +46,12 @@ export class GenesService {
         return this.http.get(url, { responseType: 'blob' });
         
     }
+
+    downloadAdvancedSearch(min: number, max: number) {
+
+        let url = this.baseUrl + `/download-advanced?min=` + min + `&max=` + max;
+        
+        return this.http.get(url, { responseType: 'blob' });
+        
+    }
 }

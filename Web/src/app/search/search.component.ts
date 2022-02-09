@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Gene } from '../models/gene';
 import { GenesService } from '../services/genes.service';
 import { LegendPosition } from '@swimlane/ngx-charts';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-search',
@@ -44,6 +45,19 @@ export class SearchComponent implements OnInit {
   showXAxis: boolean = true;
 
   // END GRAPH \\
+
+  minValue: number = -15;
+  maxValue: number = 15;
+  rangeSliderOptions: Options = {
+    floor: -20,
+    ceil: 20
+  };
+
+  selectedSearchMethod: string = '0';
+  searchMethods: any[] = [
+    {value: '0', viewValue: 'L2FC Range'},
+    // {value: '1', viewValue: 'Top 500'}
+  ];
 
   showSigLegend: boolean = false;
   showReadCounts: boolean = false;
@@ -126,6 +140,28 @@ export class SearchComponent implements OnInit {
       a.click();
       document.body.removeChild(a);
     });
+  }
+
+  downloadAdvanced() {
+
+    if (this.selectedSearchMethod == '0') { // L2FC RANGE
+
+      this.genesService.downloadAdvancedSearch(this.minValue, this.maxValue).subscribe((data: any) => {
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        a.download = 'range_' + this.minValue + '_' + this.maxValue;
+        a.href = URL.createObjectURL(data);
+        a.target = '_blank';
+        a.click();
+        document.body.removeChild(a);
+      });
+
+    } else if (this.selectedSearchMethod == '1') { // TOP
+
+
+
+    }
   }
 
   private setSelectedGene(gene: Gene) {

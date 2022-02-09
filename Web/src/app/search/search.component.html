@@ -20,6 +20,57 @@
   </mat-autocomplete>
 </mat-form-field>
 
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Advanced Search
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Search Method</mat-label>
+      <mat-select [(value)]="selectedSearchMethod">
+        <mat-option *ngFor="let searchMethod of searchMethods" [value]="searchMethod.value">
+          {{searchMethod.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- L2FC RANGE SLIDER -->
+    <div class="one-line-header" *ngIf="selectedSearchMethod == '0'">
+      <mat-form-field appearance="fill" class="slider-input">
+        <mat-label>Min</mat-label>
+        <input matInput type="number" [(ngModel)]="minValue" onfocus="this.select()">
+      </mat-form-field>
+
+      <ngx-slider 
+        [(value)]="minValue" 
+        [(highValue)]="maxValue" 
+        [options]="rangeSliderOptions">
+      </ngx-slider>
+
+      <mat-form-field appearance="fill" class="slider-input">
+        <mat-label>Max</mat-label>
+        <input matInput type="number" [(ngModel)]="maxValue" onfocus="this.select()">
+      </mat-form-field>
+    </div>
+
+    <!-- TOP COUNT SELECTOR -->
+    <div class="one-line-header" *ngIf="selectedSearchMethod == '1'">
+      
+    </div>
+
+    <div>
+      <div style="text-align: center;">
+        <button mat-raised-button (click)="downloadAdvanced()">Download</button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<br/>
+
 <div class="one-line-header">
   <h1>Results</h1>
 

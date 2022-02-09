@@ -66,6 +66,15 @@ namespace KSCIRC.Api.Controllers
             return File(memory, GetContentType(filePath), filePath);
         }
 
+        [HttpGet("download-advanced"), DisableRequestSizeLimit]
+        public async Task<IActionResult> DownloadAdvanced([FromQuery] int min, [FromQuery] int max)
+        {
+            var stream = new MemoryStream(await _geneService.GetExcelSheetByRange(min, max));
+            stream.Position = 0;
+            
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"range_{min}_{max}.xlsx");
+        }
+
         private string GetContentType(string path)
         {
             var provider = new FileExtensionContentTypeProvider();

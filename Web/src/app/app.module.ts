@@ -12,7 +12,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ScaleLinear, ScaleBand, ScalePoint, ScaleTime } from 'd3-scale';
 import { BaseType } from 'd3-selection';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     MatAutocompleteModule,
     NgxChartsModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatExpansionModule,
+    NgxSliderModule,
+    MatMenuModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
