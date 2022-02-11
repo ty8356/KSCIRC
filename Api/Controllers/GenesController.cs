@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,12 +68,13 @@ namespace KSCIRC.Api.Controllers
         }
 
         [HttpGet("download-advanced"), DisableRequestSizeLimit]
-        public async Task<IActionResult> DownloadAdvanced([FromQuery] int min, [FromQuery] int max)
+        public async Task<IActionResult> DownloadAdvanced([FromQuery] decimal min, [FromQuery] decimal max)
         {
             var stream = new MemoryStream(await _geneService.GetExcelSheetByRange(min, max));
             stream.Position = 0;
+            var date = DateTime.Now;
             
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"range_{min}_{max}.xlsx");
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{date.ToString("yyyy")}{date.ToString("MM")}{date.ToString("dd")}_ol_gene_exp_search.xlsx");
         }
 
         private string GetContentType(string path)

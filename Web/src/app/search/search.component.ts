@@ -46,11 +46,12 @@ export class SearchComponent implements OnInit {
 
   // END GRAPH \\
 
-  minValue: number = -15;
-  maxValue: number = 15;
+  minValue: number = -10;
+  maxValue: number = 10;
   rangeSliderOptions: Options = {
-    floor: -20,
-    ceil: 20
+    floor: -15,
+    ceil: 15,
+    step: 0.5
   };
 
   selectedSearchMethod: string = '0';
@@ -150,7 +151,7 @@ export class SearchComponent implements OnInit {
         const a = document.createElement('a');
         a.setAttribute('style', 'display:none;');
         document.body.appendChild(a);
-        a.download = 'range_' + this.minValue + '_' + this.maxValue;
+        a.download = 'ol_gene_exp_search.xlsx';
         a.href = URL.createObjectURL(data);
         a.target = '_blank';
         a.click();
