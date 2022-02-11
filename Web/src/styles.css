@@ -339,3 +339,7 @@ g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
 .ngx-slider-model-high {
   visibility: hidden !important;
 }
+
+.mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
+  background-color: rgba(0,0,0,.04) !important;
+}

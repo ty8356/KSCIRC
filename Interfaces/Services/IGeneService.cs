@@ -9,6 +9,6 @@ namespace KSCIRC.Interfaces.Services
     {
         public Task<List<Gene>> Search(string name);
         public Task<List<StatValue>> GetStatValues(string name);
-        public Task<byte[]> GetExcelSheetByRange(int min, int max);
+        public Task<byte[]> GetExcelSheetByRange(decimal min, decimal max);
     }
 }

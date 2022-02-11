@@ -59,7 +59,7 @@ namespace KSCIRC.Services
                 .ToList();
         }
 
-        public async Task<byte[]> GetExcelSheetByRange(int min, int max)
+        public async Task<byte[]> GetExcelSheetByRange(decimal min, decimal max)
         {
             var dpis = new List<int> { 0, 2, 10, 42 };
 
@@ -76,12 +76,16 @@ namespace KSCIRC.Services
                     .Include(x => x.Gene)
                     .Where(x => x.DaysPostInjury == dpi &&
                         x.InputValue >= min &&
-                        x.InputValue <= max)
+                        x.InputValue <= max &&
+                        x.InputQvalue <= 0.05m)
                     .Select(x => new ExcelGeneModel 
                     {
                         Ens_Id = x.Gene.EnsId,
-                        Name = x.Gene.Name
+                        Name = x.Gene.Name,
+                        Value = x.InputValue,
+                        QValue = x.InputQvalue
                     })
+                    .OrderByDescending(x => x.Value)
                     .ToList();
 
                 var workSheet = excel.Workbook.Worksheets.Add($"Total mRNA {dpi} DPI");
@@ -95,6 +99,8 @@ namespace KSCIRC.Services
             
                 workSheet.Cells[1, 1].Value = "Ens_Id";
                 workSheet.Cells[1, 2].Value = "Name";
+                workSheet.Cells[1, 3].Value = "Value";
+                workSheet.Cells[1, 4].Value = "Q Value";
         
                 int recordIndex = 2;
 
@@ -102,12 +108,15 @@ namespace KSCIRC.Services
                 {
                     workSheet.Cells[recordIndex, 1].Value = gene.Ens_Id;
                     workSheet.Cells[recordIndex, 2].Value = gene.Name;
+                    workSheet.Cells[recordIndex, 3].Value = gene.Value;
+                    workSheet.Cells[recordIndex, 4].Value = gene.QValue;
                     recordIndex++;
                 }
 
                 workSheet.Column(1).AutoFit();
                 workSheet.Column(2).AutoFit();
                 workSheet.Column(3).AutoFit();
+                workSheet.Column(4).AutoFit();
             }
 
             // OL mRNA
@@ -120,12 +129,16 @@ namespace KSCIRC.Services
                     .Include(x => x.Gene)
                     .Where(x => x.DaysPostInjury == dpi &&
                         x.ImmunoprecipitateValue >= min &&
-                        x.ImmunoprecipitateValue <= max)
+                        x.ImmunoprecipitateValue <= max &&
+                        x.ImmunoprecipitateQvalue <= 0.05m)
                     .Select(x => new ExcelGeneModel 
                     {
                         Ens_Id = x.Gene.EnsId,
-                        Name = x.Gene.Name
+                        Name = x.Gene.Name,
+                        Value = x.ImmunoprecipitateValue,
+                        QValue = x.ImmunoprecipitateQvalue
                     })
+                    .OrderByDescending(x => x.Value)
                     .ToList();
 
                 var workSheet = excel.Workbook.Worksheets.Add($"OL mRNA {dpi} DPI");
@@ -139,6 +152,8 @@ namespace KSCIRC.Services
             
                 workSheet.Cells[1, 1].Value = "Ens_Id";
                 workSheet.Cells[1, 2].Value = "Name";
+                workSheet.Cells[1, 3].Value = "Value";
+                workSheet.Cells[1, 4].Value = "Q Value";
         
                 int recordIndex = 2;
 
@@ -146,12 +161,15 @@ namespace KSCIRC.Services
                 {
                     workSheet.Cells[recordIndex, 1].Value = gene.Ens_Id;
                     workSheet.Cells[recordIndex, 2].Value = gene.Name;
+                    workSheet.Cells[recordIndex, 3].Value = gene.Value;
+                    workSheet.Cells[recordIndex, 4].Value = gene.QValue;
                     recordIndex++;
                 }
 
                 workSheet.Column(1).AutoFit();
                 workSheet.Column(2).AutoFit();
                 workSheet.Column(3).AutoFit();
+                workSheet.Column(4).AutoFit();
             }
 
             // OL Enrichment
@@ -162,12 +180,16 @@ namespace KSCIRC.Services
                     .Include(x => x.Gene)
                     .Where(x => x.DaysPostInjury == dpi &&
                         x.EnrichmentValue >= min &&
-                        x.EnrichmentValue <= max)
+                        x.EnrichmentValue <= max &&
+                        x.EnrichmentQvalue <= 0.05m)
                     .Select(x => new ExcelGeneModel 
                     {
                         Ens_Id = x.Gene.EnsId,
-                        Name = x.Gene.Name
+                        Name = x.Gene.Name,
+                        Value = x.EnrichmentValue,
+                        QValue = x.EnrichmentQvalue
                     })
+                    .OrderByDescending(x => x.Value)
                     .ToList();
 
                 var workSheet = excel.Workbook.Worksheets.Add($"OL Enrichment {dpi} DPI");
@@ -181,6 +203,8 @@ namespace KSCIRC.Services
             
                 workSheet.Cells[1, 1].Value = "Ens_Id";
                 workSheet.Cells[1, 2].Value = "Name";
+                workSheet.Cells[1, 3].Value = "Value";
+                workSheet.Cells[1, 4].Value = "Q Value";
         
                 int recordIndex = 2;
 
@@ -188,12 +212,15 @@ namespace KSCIRC.Services
                 {
                     workSheet.Cells[recordIndex, 1].Value = gene.Ens_Id;
                     workSheet.Cells[recordIndex, 2].Value = gene.Name;
+                    workSheet.Cells[recordIndex, 3].Value = gene.Value;
+                    workSheet.Cells[recordIndex, 4].Value = gene.QValue;
                     recordIndex++;
                 }
 
                 workSheet.Column(1).AutoFit();
                 workSheet.Column(2).AutoFit();
                 workSheet.Column(3).AutoFit();
+                workSheet.Column(4).AutoFit();
             }
 
             // Change in OL Enrichment
@@ -206,12 +233,16 @@ namespace KSCIRC.Services
                     .Include(x => x.Gene)
                     .Where(x => x.DaysPostInjury == dpi &&
                         x.InteractionValue >= min &&
-                        x.InteractionValue <= max)
+                        x.InteractionValue <= max &&
+                        x.InteractionQvalue <= 0.05m)
                     .Select(x => new ExcelGeneModel 
                     {
                         Ens_Id = x.Gene.EnsId,
-                        Name = x.Gene.Name
+                        Name = x.Gene.Name,
+                        Value = x.InteractionValue,
+                        QValue = x.InteractionQvalue
                     })
+                    .OrderByDescending(x => x.Value)
                     .ToList();
 
                 var workSheet = excel.Workbook.Worksheets.Add($"Change in OL Enrichment {dpi} DPI");
@@ -225,6 +256,8 @@ namespace KSCIRC.Services
             
                 workSheet.Cells[1, 1].Value = "Ens_Id";
                 workSheet.Cells[1, 2].Value = "Name";
+                workSheet.Cells[1, 3].Value = "Value";
+                workSheet.Cells[1, 4].Value = "Q Value";
         
                 int recordIndex = 2;
 
@@ -232,12 +265,15 @@ namespace KSCIRC.Services
                 {
                     workSheet.Cells[recordIndex, 1].Value = gene.Ens_Id;
                     workSheet.Cells[recordIndex, 2].Value = gene.Name;
+                    workSheet.Cells[recordIndex, 3].Value = gene.Value;
+                    workSheet.Cells[recordIndex, 4].Value = gene.QValue;
                     recordIndex++;
                 }
 
                 workSheet.Column(1).AutoFit();
                 workSheet.Column(2).AutoFit();
                 workSheet.Column(3).AutoFit();
+                workSheet.Column(4).AutoFit();
             }
 
             var byteArray = await excel.GetAsByteArrayAsync();
