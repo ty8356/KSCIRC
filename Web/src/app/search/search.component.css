@@ -1,9 +1,3 @@
-.one-line-header {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: baseline;
-}
-
 /* basic positioning */
 .legend { 
     list-style: none; 

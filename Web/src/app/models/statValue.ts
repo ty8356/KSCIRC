@@ -9,6 +9,8 @@ export class StatValue {
     EnrichmentQvalue?: number;
     InteractionValue?: number;
     InteractionQvalue?: number;
+    InputMedianReadCount?: number;
+    ImmunoprecipitateMedianReadCount?: number;
 
     constructor(
         id: number = 0,
@@ -20,7 +22,9 @@ export class StatValue {
         enrichmentValue: number = 0,
         enrichmentQvalue: number = 0,
         interactionValue: number = 0,
-        interactionQvalue: number = 0
+        interactionQvalue: number = 0,
+        inputMedianReadCount: number = 0,
+        immunoprecipitateMedianReadCount: number = 0
     ) {
         this.Id = id,
         this.DaysPostInjury = daysPostInjury,
@@ -31,6 +35,8 @@ export class StatValue {
         this.EnrichmentValue = enrichmentValue,
         this.EnrichmentQvalue = enrichmentQvalue,
         this.InteractionValue = interactionValue,
-        this.InteractionQvalue = interactionQvalue
+        this.InteractionQvalue = interactionQvalue,
+        this.InputMedianReadCount = inputMedianReadCount,
+        this.ImmunoprecipitateMedianReadCount = immunoprecipitateMedianReadCount
     }
 }

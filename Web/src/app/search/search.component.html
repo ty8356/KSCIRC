@@ -74,7 +74,7 @@
 <div class="one-line-header">
   <h1>Results</h1>
 
-  <mat-slide-toggle color="primary" [(ngModel)]="showReadCounts"></mat-slide-toggle>
+  <!-- <mat-slide-toggle color="primary" [(ngModel)]="showReadCounts"></mat-slide-toggle> -->
 </div>
 
 <mat-tab-group (selectedTabChange)="toggleSigLegend($event)">
@@ -98,7 +98,7 @@
         <ng-template #tooltipTemplate let-model="model">
           {{model.value}}
           <br>
-          q = {{model.extra.tooltip}}
+          q = {{model.extra.qvalue}}
         </ng-template>
       </ngx-charts-line-chart>
     </ng-template>
@@ -123,7 +123,9 @@
         <ng-template #tooltipTemplate let-model="model">
           {{model.value}}
           <br>
-          q = {{model.extra.tooltip}}
+          q = {{model.extra.qvalue}}
+          <br>
+          Median Reads: {{model.extra.medianReadCount}}
         </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
@@ -148,7 +150,9 @@
         <ng-template #tooltipTemplate let-model="model">
           {{model.value}}
           <br>
-          q = {{model.extra.tooltip}}
+          q = {{model.extra.qvalue}}
+          <br>
+          Median Reads: {{model.extra.medianReadCount}}
         </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
@@ -173,7 +177,7 @@
         <ng-template #tooltipTemplate let-model="model">
           {{model.value}}
           <br>
-          q = {{model.extra.tooltip}}
+          q = {{model.extra.qvalue}}
         </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>
@@ -198,7 +202,7 @@
         <ng-template #tooltipTemplate let-model="model">
           {{model.value}}
           <br>
-          q = {{model.extra.tooltip}}
+          q = {{model.extra.qvalue}}
         </ng-template>
       </ngx-charts-bar-vertical>
     </ng-template>

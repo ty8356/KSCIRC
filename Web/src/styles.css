@@ -343,3 +343,37 @@ g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
 .mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
   background-color: rgba(0,0,0,.04) !important;
 }
+
+.center {
+  text-align: center !important;
+}
+
+.uofl-logo:hover {
+  cursor: pointer;
+}
+
+.one-line-header {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: baseline;
+}
+
+.one-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-center {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.content {
+  max-width: 1480px !important;
+}
+
+.right-content {
+  position: absolute;
+  right: 20%;
+}

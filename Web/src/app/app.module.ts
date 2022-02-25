@@ -17,11 +17,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { MatMenuModule} from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { HomeComponent } from './home/home.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatExpansionModule,
     NgxSliderModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponent},
+      {path: 'search', component: SearchComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

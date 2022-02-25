@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit {
   ];
 
   showSigLegend: boolean = false;
-  showReadCounts: boolean = false;
+  // showReadCounts: boolean = false;
 
   geneSearchControl = new FormControl();
   options: string[] = [ ];
@@ -183,7 +183,7 @@ export class SearchComponent implements OnInit {
             "name": x.DaysPostInjury,
             "value": x.EnrichmentValue?.toFixed(3),
             "extra": {
-              "tooltip": x.EnrichmentQvalue?.toFixed(3)
+              "qvalue": x.EnrichmentQvalue?.toFixed(3)
             }
           });
           if (x.DaysPostInjury != 0) {
@@ -191,21 +191,23 @@ export class SearchComponent implements OnInit {
               "name": x.DaysPostInjury,
               "value": x.InteractionValue?.toFixed(3),
               "extra": {
-                "tooltip": x.InteractionQvalue?.toFixed(3)
+                "qvalue": x.InteractionQvalue?.toFixed(3)
               }
             });
             input.push({
               "name": x.DaysPostInjury,
               "value": x.InputValue?.toFixed(3),
               "extra": {
-                "tooltip": x.InputQvalue?.toFixed(3)
+                "qvalue": x.InputQvalue?.toFixed(3),
+                "medianReadCount": x.InputMedianReadCount?.toFixed(3)
               }
             });
             ip.push({
               "name": x.DaysPostInjury,
               "value": x.ImmunoprecipitateValue?.toFixed(3),
               "extra": {
-                "tooltip": x.ImmunoprecipitateQvalue?.toFixed(3)
+                "qvalue": x.ImmunoprecipitateQvalue?.toFixed(3),
+                "medianReadCount": x.ImmunoprecipitateMedianReadCount?.toFixed(3)
               }
             });
           }
@@ -237,7 +239,7 @@ export class SearchComponent implements OnInit {
 
         this.enrichmentColors = [];
         this.enrichmentData.forEach(x => {
-          if (x.extra.tooltip <= 0.5) {
+          if (x.extra.qvalue <= 0.05) {
             this.enrichmentColors.push({
               "name": x.name.toString(),
               "value": "#AD0000"
@@ -252,7 +254,7 @@ export class SearchComponent implements OnInit {
 
         this.interactionColors = [];
         this.interactionData.forEach(x => {
-          if (x.extra.tooltip <= 0.5) {
+          if (x.extra.qvalue <= 0.05) {
             this.interactionColors.push({
               "name": x.name.toString(),
               "value": "#AD0000"
@@ -267,7 +269,7 @@ export class SearchComponent implements OnInit {
 
         this.ipColors = [];
         this.ipData.forEach(x => {
-          if (x.extra.tooltip <= 0.5) {
+          if (x.extra.qvalue <= 0.05) {
             this.ipColors.push({
               "name": x.name.toString(),
               "value": "#AD0000"
@@ -282,7 +284,7 @@ export class SearchComponent implements OnInit {
 
         this.inColors = [];
         this.inData.forEach(x => {
-          if (x.extra.tooltip <= 0.5) {
+          if (x.extra.qvalue <= 0.05) {
             this.inColors.push({
               "name": x.name.toString(),
               "value": "#AD0000"
