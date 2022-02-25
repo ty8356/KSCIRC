@@ -19,6 +19,8 @@ namespace KSCIRC.Models.Model
         public decimal? InteractionQvalue { get; set; }
         public decimal? Interaction2x4Value { get; set; }
         public decimal? Interaction2x4Qvalue { get; set; }
+        public decimal? InputMedianReadCount { get; set; }
+        public decimal? ImmunoprecipitateMedianReadCount { get; set; }
 
         public virtual Gene Gene { get; set; }
         public virtual Publication Publication { get; set; }

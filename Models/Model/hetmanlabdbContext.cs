@@ -83,6 +83,10 @@ namespace KSCIRC.Models.Model
 
                 entity.Property(e => e.InteractionValue).HasColumnType("decimal(20, 15)");
 
+                entity.Property(e => e.InputMedianReadCount).HasColumnType("decimal(35, 20)");
+
+                entity.Property(e => e.ImmunoprecipitateMedianReadCount).HasColumnType("decimal(35, 20)");
+
                 entity.HasOne(d => d.Gene)
                     .WithMany(p => p.StatValues)
                     .HasForeignKey(d => d.GeneId)

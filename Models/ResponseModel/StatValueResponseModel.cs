@@ -15,5 +15,7 @@ namespace KSCIRC.Models.ResponseModel
         public decimal? EnrichmentQvalue { get; set; }
         public decimal? InteractionValue { get; set; }
         public decimal? InteractionQvalue { get; set; }
+        public decimal? InputMedianReadCount { get; set; }
+        public decimal? ImmunoprecipitateMedianReadCount { get; set; }
     }
 }
