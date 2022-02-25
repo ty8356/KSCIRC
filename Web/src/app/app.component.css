@@ -1,0 +1,8 @@
+footer a {
+    display: inline !important;
+    color: lightblue;
+}
+
+footer a:hover {
+    color: skyblue;
+}
