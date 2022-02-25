@@ -26,6 +26,13 @@ namespace KSCIRC.ExcelDataInsert
         // NOTE: tons of hard coding because this is a one-time thing
         public void Execute()
         {
+            // InsertInitial();
+
+            InsertReadCounts();
+        }
+
+        private void InsertInitial()
+        {
             var publicationId = 2;
             Console.WriteLine("Creating default publication...");
 
@@ -179,6 +186,94 @@ namespace KSCIRC.ExcelDataInsert
                         });
 
                         _context.StatValues.AddRange(statValues);
+                        _context.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private void InsertReadCounts()
+        {
+            Console.WriteLine("Uploading read counts from excel file...");
+
+            var file = new FileInfo(@"C:\kscirc\upload\20220119_htseq_normalizedCounts_MinCount10_MedAveSD_02142022.xlsx");
+
+            using (var package = new ExcelPackage(file))
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                var worksheet = package?
+                    .Workbook?
+                    .Worksheets?
+                    .FirstOrDefault();
+
+                var totalRows = worksheet?
+                    .Dimension?
+                    .Rows;
+
+                if (totalRows == null)
+                {
+                    Console.WriteLine("No rows found.");
+                }
+                else
+                {
+                    Console.WriteLine($"Found {totalRows} rows.");
+
+                    var headers = worksheet.GetHeaderColumns();
+                    var columns = headers.ReadColumnNumbers();
+
+                    for (int i = 2; i <= totalRows; i++)
+                    {
+                        Console.WriteLine($"Adding gene {i - 1} of {totalRows - 1}.");
+
+                        var ensId = worksheet.Cells[i, columns["ensembl_id"]]?.Value?.ToString();
+                        var inMed2dpi = worksheet.Cells[i, columns["in2dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["in2dpimed"]]?.Value?.ToString()) : null;
+                        var ipMed2dpi = worksheet.Cells[i, columns["ip2dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["ip2dpimed"]]?.Value?.ToString()) : null;
+                        var inMed10dpi = worksheet.Cells[i, columns["in10dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["in10dpimed"]]?.Value?.ToString()) : null;
+                        var ipMed10dpi = worksheet.Cells[i, columns["ip10dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["ip10dpimed"]]?.Value?.ToString()) : null;
+                        var inMed42dpi = worksheet.Cells[i, columns["in42dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["in42dpimed"]]?.Value?.ToString()) : null;
+                        var ipMed42dpi = worksheet.Cells[i, columns["ip42dpimed"]]?.Value != null ? (decimal?) Convert.ToDecimal(worksheet.Cells[i, columns["ip42dpimed"]]?.Value?.ToString()) : null;
+
+                        var gene = _context
+                            .Genes
+                            .FirstOrDefault(x => x.EnsId == ensId);
+
+                        if (gene == null)
+                        {
+                            Console.WriteLine($"Gene {ensId ?? ""} not found. Continuing...");
+                            continue;
+                        }
+
+                        var statValues = _context
+                            .StatValues
+                            .Where(x => x.GeneId == gene.Id)
+                            .ToList();
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 2)
+                            .InputMedianReadCount = inMed2dpi;
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 2)
+                            .ImmunoprecipitateMedianReadCount = ipMed2dpi;
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 10)
+                            .InputMedianReadCount = inMed10dpi;
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 10)
+                            .ImmunoprecipitateMedianReadCount = ipMed10dpi;
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 42)
+                            .InputMedianReadCount = inMed42dpi;
+
+                        statValues
+                            .FirstOrDefault(x => x.DaysPostInjury == 42)
+                            .ImmunoprecipitateMedianReadCount = ipMed42dpi;
+
+                        _context.StatValues.UpdateRange(statValues);
                         _context.SaveChanges();
                     }
                 }
