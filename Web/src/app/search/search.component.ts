@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -14,6 +14,8 @@ import { Options } from '@angular-slider/ngx-slider';
 })
 export class SearchComponent implements OnInit {
 
+  innerWidth: number = window.innerWidth;
+
   // BEGIN GRAPH \\
   allData: any[] = [];
   enrichmentData: any[] = [];
@@ -26,7 +28,7 @@ export class SearchComponent implements OnInit {
   ipColors: any[] = [];
   inColors: any[] = [];
 
-  view: [number, number] = [window.innerWidth <= 767 ? 300 : 800, 300];
+  view: [number, number] = [this.innerWidth <= 800 ? this.innerWidth - 60 : 800, 300];
   xAxisTicks: any[] = [ "2", "10", "42" ]
 
   // options
@@ -81,12 +83,21 @@ export class SearchComponent implements OnInit {
 
     this.searchTerm = "Gapdh";
     this.onKeyUp();
+
+    this.innerWidth = window.innerWidth;
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+    this.view = [this.innerWidth <= 800 ? this.innerWidth - 60 : 800, 300]
+    console.log(this.view);
   }
 
   onKeyUp() {

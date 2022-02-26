@@ -290,7 +290,7 @@ svg#clouds {
 }
 
 /* Responsive Styles */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
   .side-image {
     display: none;
   }
@@ -325,16 +325,16 @@ svg#clouds {
   }
 
   .search-content {
-    width: 300px;
+    width: 90vw;
   }
 
   .advanced-search-accordion {
     display: none !important;
   }
 
-  .tab-group {
-    width: 300px;
-  }
+  /* .tab-group {
+    width: 400px !important;
+  } */
 
   .legend {
     display: none !important;
