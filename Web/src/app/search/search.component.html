@@ -1,225 +1,227 @@
-<h1>Search</h1>
+<div class="search-content">
+  <h1 class="title">Search</h1>
 
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Gene name</mat-label>
-  <input type="text"
-         placeholder=""
-         aria-label="GeneName"
-         matInput
-         [formControl]="geneSearchControl"
-         [matAutocomplete]="auto"
-         #trigger="matAutocompleteTrigger"
-         (keyup)="onKeyUp()"
-         (keyup.enter)="onEnter(); trigger.closePanel()"
-         [(ngModel)]="searchTerm"
-         onfocus="this.select()">
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onOptionClick()">
-      {{option}}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Advanced Search
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Search Method</mat-label>
-      <mat-select [(value)]="selectedSearchMethod">
-        <mat-option *ngFor="let searchMethod of searchMethods" [value]="searchMethod.value">
-          {{searchMethod.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- L2FC RANGE SLIDER -->
-    <div class="one-line-header" *ngIf="selectedSearchMethod == '0'">
-      <mat-form-field appearance="fill" class="slider-input">
-        <mat-label>Min</mat-label>
-        <input matInput type="number" [(ngModel)]="minValue" onfocus="this.select()" disabled="true">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Gene name</mat-label>
+    <input type="text"
+           placeholder=""
+           aria-label="GeneName"
+           matInput
+           [formControl]="geneSearchControl"
+           [matAutocomplete]="auto"
+           #trigger="matAutocompleteTrigger"
+           (keyup)="onKeyUp()"
+           (keyup.enter)="onEnter(); trigger.closePanel()"
+           [(ngModel)]="searchTerm"
+           onfocus="this.select()">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="onOptionClick()">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <mat-accordion class="advanced-search-accordion">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Advanced Search
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Search Method</mat-label>
+        <mat-select [(value)]="selectedSearchMethod">
+          <mat-option *ngFor="let searchMethod of searchMethods" [value]="searchMethod.value">
+            {{searchMethod.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
-      <ngx-slider 
-        [(value)]="minValue" 
-        [(highValue)]="maxValue" 
-        [options]="rangeSliderOptions">
-      </ngx-slider>
-
-      <mat-form-field appearance="fill" class="slider-input">
-        <mat-label>Max</mat-label>
-        <input matInput type="number" [(ngModel)]="maxValue" onfocus="this.select()" disabled="true">
-      </mat-form-field>
-    </div>
-
-    <!-- TOP COUNT SELECTOR -->
-    <div class="one-line-header" *ngIf="selectedSearchMethod == '1'">
-      
-    </div>
-
-    <div>
-      <div style="text-align: center;">
-        <button mat-raised-button (click)="downloadAdvanced()">Download</button>
+  
+      <!-- L2FC RANGE SLIDER -->
+      <div class="one-line-header" *ngIf="selectedSearchMethod == '0'">
+        <mat-form-field appearance="fill" class="slider-input">
+          <mat-label>Min</mat-label>
+          <input matInput type="number" [(ngModel)]="minValue" onfocus="this.select()" disabled="true">
+        </mat-form-field>
+  
+        <ngx-slider 
+          [(value)]="minValue" 
+          [(highValue)]="maxValue" 
+          [options]="rangeSliderOptions">
+        </ngx-slider>
+  
+        <mat-form-field appearance="fill" class="slider-input">
+          <mat-label>Max</mat-label>
+          <input matInput type="number" [(ngModel)]="maxValue" onfocus="this.select()" disabled="true">
+        </mat-form-field>
       </div>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
-
-<br/>
-
-<div class="one-line-header">
-  <h1>Results</h1>
-
-  <!-- <mat-slide-toggle color="primary" [(ngModel)]="showReadCounts"></mat-slide-toggle> -->
+  
+      <!-- TOP COUNT SELECTOR -->
+      <div class="one-line-header" *ngIf="selectedSearchMethod == '1'">
+        
+      </div>
+  
+      <div>
+        <div style="text-align: center;">
+          <button mat-raised-button (click)="downloadAdvanced()">Download</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  
+  <br/>
+  
+  <div class="one-line-header">
+    <h1 class="title">Results</h1>
+  
+    <!-- <mat-slide-toggle color="primary" [(ngModel)]="showReadCounts"></mat-slide-toggle> -->
+  </div>
+  
+  <mat-tab-group (selectedTabChange)="toggleSigLegend($event)" class="tab-group">
+    <mat-tab label="All">
+      <ng-template matTabContent>
+        <ngx-charts-line-chart
+          [view]="view"
+          [scheme]="'flame'"
+          [legend]="lineLegend"
+          [legendPosition]="legendPosition"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [xAxisTicks]="xAxisTicks"
+          [timeline]="timeline"
+          [results]="allData"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+            {{model.value}}
+            <br>
+            q = {{model.extra.qvalue}}
+          </ng-template>
+        </ngx-charts-line-chart>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Total mRNA">
+      <ng-template matTabContent>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="'flame'"
+          [results]="inData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="barLegend"
+          [legendPosition]="legendPosition"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [customColors]="inColors"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+            {{model.value}}
+            <br>
+            q = {{model.extra.qvalue}}
+            <br>
+            Median Reads: {{model.extra.medianReadCount}}
+          </ng-template>
+        </ngx-charts-bar-vertical>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="OL mRNA">
+      <ng-template matTabContent>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="'flame'"
+          [results]="ipData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="barLegend"
+          [legendPosition]="legendPosition"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [customColors]="ipColors"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+            {{model.value}}
+            <br>
+            q = {{model.extra.qvalue}}
+            <br>
+            Median Reads: {{model.extra.medianReadCount}}
+          </ng-template>
+        </ngx-charts-bar-vertical>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="OL Enrichment">
+      <ng-template matTabContent>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="'flame'"
+          [results]="enrichmentData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="barLegend"
+          [legendPosition]="legendPosition"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [customColors]="enrichmentColors"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+            {{model.value}}
+            <br>
+            q = {{model.extra.qvalue}}
+          </ng-template>
+        </ngx-charts-bar-vertical>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="&Delta; in OL Enrichment">
+      <ng-template matTabContent>
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="'flame'"
+          [results]="interactionData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="barLegend"
+          [legendPosition]="legendPosition"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [customColors]="interactionColors"
+          >
+          <ng-template #tooltipTemplate let-model="model">
+            {{model.value}}
+            <br>
+            q = {{model.extra.qvalue}}
+          </ng-template>
+        </ngx-charts-bar-vertical>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+  
+  <div class="one-line-header">
+    <h1 class="title">Details</h1>
+  
+    <ul *ngIf="showSigLegend" class="legend">
+      <li><span class="significant"></span> Significant</li>
+      <li><span class="insignificant"></span> Insignificant</li>
+    </ul>
+  
+    <button mat-raised-button (click)="downloadAll()" class="download-source-btn">Download Source</button>
+  </div>
+  
+  <p class="description">Ens Id: <span *ngIf="this.selectedGene.EnsId != 0">{{selectedGene.EnsId}}</span></p>
+  <p class="description">Name: {{selectedGene.Name}}</p>
+  <p class="description">Description: {{selectedGene.Description}}</p>  
 </div>
-
-<mat-tab-group (selectedTabChange)="toggleSigLegend($event)">
-  <mat-tab label="All">
-    <ng-template matTabContent>
-      <ngx-charts-line-chart
-        [view]="view"
-        [scheme]="'flame'"
-        [legend]="lineLegend"
-        [legendPosition]="legendPosition"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [xAxisTicks]="xAxisTicks"
-        [timeline]="timeline"
-        [results]="allData"
-        >
-        <ng-template #tooltipTemplate let-model="model">
-          {{model.value}}
-          <br>
-          q = {{model.extra.qvalue}}
-        </ng-template>
-      </ngx-charts-line-chart>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Total mRNA">
-    <ng-template matTabContent>
-      <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="'flame'"
-        [results]="inData"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="barLegend"
-        [legendPosition]="legendPosition"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [customColors]="inColors"
-        >
-        <ng-template #tooltipTemplate let-model="model">
-          {{model.value}}
-          <br>
-          q = {{model.extra.qvalue}}
-          <br>
-          Median Reads: {{model.extra.medianReadCount}}
-        </ng-template>
-      </ngx-charts-bar-vertical>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="OL mRNA">
-    <ng-template matTabContent>
-      <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="'flame'"
-        [results]="ipData"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="barLegend"
-        [legendPosition]="legendPosition"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [customColors]="ipColors"
-        >
-        <ng-template #tooltipTemplate let-model="model">
-          {{model.value}}
-          <br>
-          q = {{model.extra.qvalue}}
-          <br>
-          Median Reads: {{model.extra.medianReadCount}}
-        </ng-template>
-      </ngx-charts-bar-vertical>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="OL Enrichment">
-    <ng-template matTabContent>
-      <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="'flame'"
-        [results]="enrichmentData"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="barLegend"
-        [legendPosition]="legendPosition"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [customColors]="enrichmentColors"
-        >
-        <ng-template #tooltipTemplate let-model="model">
-          {{model.value}}
-          <br>
-          q = {{model.extra.qvalue}}
-        </ng-template>
-      </ngx-charts-bar-vertical>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="&Delta; in OL Enrichment">
-    <ng-template matTabContent>
-      <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="'flame'"
-        [results]="interactionData"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="barLegend"
-        [legendPosition]="legendPosition"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [customColors]="interactionColors"
-        >
-        <ng-template #tooltipTemplate let-model="model">
-          {{model.value}}
-          <br>
-          q = {{model.extra.qvalue}}
-        </ng-template>
-      </ngx-charts-bar-vertical>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
-
-<div class="one-line-header">
-  <h1>Details</h1>
-
-  <ul *ngIf="showSigLegend" class="legend">
-    <li><span class="significant"></span> Significant</li>
-    <li><span class="insignificant"></span> Insignificant</li>
-  </ul>
-
-  <button mat-raised-button (click)="downloadAll()">Download Source</button>
-</div>
-
-<p>Ens Id: <span *ngIf="this.selectedGene.EnsId != 0">{{selectedGene.EnsId}}</span></p>
-<p>Name: {{selectedGene.Name}}</p>
-<p>Description: {{selectedGene.Description}}</p>
