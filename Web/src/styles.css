@@ -291,30 +291,66 @@ svg#clouds {
 
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
-  .card-container > *:not(.circle-link) ,
-  .terminal {
-    width: 100%;
-  }
-
-  .card:not(.highlight-card) {
-    height: 16px;
-    margin: 8px 0;
-  }
-
-  .card.highlight-card span {
-    margin-left: 72px;
-  }
-
-  svg#rocket-smoke {
-    right: 120px;
-    transform: rotate(-5deg);
-  }
-}
-
-@media screen and (max-width: 575px) {
-  svg#rocket-smoke {
+  .side-image {
     display: none;
-    visibility: hidden;
+  }
+
+  .title {
+    font-size: medium;
+  }
+
+  .description {
+    font-size: small !important;
+  }
+
+  .footnote {
+    font-size: xx-small !important;
+  }
+
+  .footer-text {
+    font-size: x-small !important;
+  }
+
+  .uofl-logo {
+    width: 40px !important;
+  }
+
+  .kscirc-logo {
+    width: 40px !important;
+  }
+
+  .nav-header {
+    font-size: small !important;
+    text-align: center !important;
+  }
+
+  .search-content {
+    width: 300px;
+  }
+
+  .advanced-search-accordion {
+    display: none !important;
+  }
+
+  .tab-group {
+    width: 300px;
+  }
+
+  .legend {
+    display: none !important;
+  }
+
+  .download-source-btn {
+    display: none !important;
+  }
+
+  span.legend-label-text {
+    font-size: 6px !important;
+  }
+
+  span.legend-label-color {
+    /* width: 10px !important; */
+    height: 10px !important;
   }
 }
 
@@ -376,4 +412,12 @@ g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
 .right-content {
   position: absolute;
   right: 20%;
+}
+
+.description {
+  font-size: larger;
+}
+
+.footnote {
+  font-size: medium;
 }

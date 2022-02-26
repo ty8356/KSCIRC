@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
   ipColors: any[] = [];
   inColors: any[] = [];
 
-  view: [number, number] = [800, 300];
+  view: [number, number] = [window.innerWidth <= 767 ? 300 : 800, 300];
   xAxisTicks: any[] = [ "2", "10", "42" ]
 
   // options
