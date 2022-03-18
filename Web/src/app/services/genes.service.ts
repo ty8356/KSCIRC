@@ -16,8 +16,8 @@ export class GenesService {
     constructor(
         private http: HttpClient
     ) {
-        this.baseUrl = `api/genes`;
-        // this.baseUrl = `http://localhost:5000/genes`;
+        // this.baseUrl = `api/genes`;
+        this.baseUrl = `http://localhost:5000/genes`;
     }
 
     searchGenes(name: string): Observable<Gene[]> {
