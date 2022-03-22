@@ -80,7 +80,7 @@ p {
   background-color: #5c6a77;
   color: white;
   font-weight: 600;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .toolbar img {
@@ -254,7 +254,7 @@ footer {
   align-items: center;
   line-height: 20px;
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   bottom: 0px; /* was 5 */
   width: 100%;
   text-align: center !important;
