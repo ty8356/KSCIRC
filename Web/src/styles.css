@@ -7,6 +7,14 @@
     text-align: center !important;
 }
 
+.gene-info {
+  max-width: 850px;
+}
+
+.description {
+  font-size: medium !important;
+}
+
 body{
     font-family: "Helvetica Neue", sans-serif;
 }
