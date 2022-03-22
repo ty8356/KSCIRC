@@ -6,6 +6,7 @@ import { Gene } from '../models/gene';
 import { GenesService } from '../services/genes.service';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { Options } from '@angular-slider/ngx-slider';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-search',
@@ -72,10 +73,12 @@ export class SearchComponent implements OnInit {
   selectedGene: Gene = new Gene;
 
   constructor(
-    public genesService: GenesService
+    public genesService: GenesService,
+    public spinnerService: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
+    this.spinnerService.show();
     this.filteredOptions = this.geneSearchControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
@@ -119,6 +122,8 @@ export class SearchComponent implements OnInit {
             startWith(''),
             map(value => this._filter(value)),
           );
+
+          this.spinnerService.hide();
         });
     } 
   }
@@ -142,7 +147,11 @@ export class SearchComponent implements OnInit {
   }
 
   downloadAll() {
+    this.spinnerService.show();
+
     this.genesService.downloadAllFile().subscribe((data: any) => {
+      this.spinnerService.hide();
+
       const a = document.createElement('a');
       a.setAttribute('style', 'display:none;');
       document.body.appendChild(a);
@@ -156,9 +165,13 @@ export class SearchComponent implements OnInit {
 
   downloadAdvanced() {
 
+    this.spinnerService.show();
+
     if (this.selectedSearchMethod == '0') { // L2FC RANGE
 
       this.genesService.downloadAdvancedSearch(this.minValue, this.maxValue).subscribe((data: any) => {
+        this.spinnerService.hide();
+
         const a = document.createElement('a');
         a.setAttribute('style', 'display:none;');
         document.body.appendChild(a);
