@@ -226,9 +226,11 @@
     <button mat-raised-button (click)="downloadAll()" class="download-source-btn">Download Source</button>
   </div>
   
-  <p class="description">Ens Id: <span *ngIf="this.selectedGene.EnsId != 0">{{selectedGene.EnsId}}</span></p>
-  <p class="description">Name: {{selectedGene.Name}}</p>
-  <p class="description">Description: {{selectedGene.Description}}</p>  
+  <div class="gene-info">
+    <p class="description">Ens Id: <span *ngIf="this.selectedGene.EnsId != 0">{{selectedGene.EnsId}}</span></p>
+    <p class="description">Name: {{selectedGene.Name}}</p>
+    <p class="description">Description: {{selectedGene.Description}}</p>  
+  </div>
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise"></ngx-spinner> 
