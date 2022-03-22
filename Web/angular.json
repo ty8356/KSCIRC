@@ -28,6 +28,7 @@
               "src/web.config"
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-spin-clockwise.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -38,7 +39,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",

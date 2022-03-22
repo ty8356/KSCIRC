@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +19,7 @@ import { MatMenuModule} from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
+import { NgxSpinner, NgxSpinnerModule } from "ngx-spinner"; 
 
 @NgModule({
   declarations: [
@@ -45,9 +46,11 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
       {path: 'search', component: SearchComponent}
-    ])
+    ]),
+    NgxSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
