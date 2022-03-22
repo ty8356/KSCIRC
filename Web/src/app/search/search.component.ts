@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
   inColors: any[] = [];
 
   view: [number, number] = [this.innerWidth <= 800 ? this.innerWidth - 60 : 800, 300];
-  xAxisTicks: any[] = [ "2", "10", "42" ]
+  xAxisTicks: any[] = [ "0", "2", "10", "42" ]
 
   // options
   lineLegend: boolean = true;

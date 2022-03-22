@@ -82,6 +82,7 @@
     <mat-tab label="All">
       <ng-template matTabContent>
         <ngx-charts-line-chart
+          [animations]=false
           [view]="view"
           [scheme]="'flame'"
           [legend]="lineLegend"
@@ -107,6 +108,7 @@
     <mat-tab label="Total mRNA">
       <ng-template matTabContent>
         <ngx-charts-bar-vertical
+          [animations]=false
           [view]="view"
           [scheme]="'flame'"
           [results]="inData"
@@ -134,6 +136,7 @@
     <mat-tab label="OL mRNA">
       <ng-template matTabContent>
         <ngx-charts-bar-vertical
+          [animations]=false
           [view]="view"
           [scheme]="'flame'"
           [results]="ipData"
@@ -161,6 +164,7 @@
     <mat-tab label="OL Enrichment">
       <ng-template matTabContent>
         <ngx-charts-bar-vertical
+          [animations]=false
           [view]="view"
           [scheme]="'flame'"
           [results]="enrichmentData"
@@ -186,6 +190,7 @@
     <mat-tab label="&Delta; in OL Enrichment">
       <ng-template matTabContent>
         <ngx-charts-bar-vertical
+          [animations]=false
           [view]="view"
           [scheme]="'flame'"
           [results]="interactionData"
