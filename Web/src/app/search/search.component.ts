@@ -60,7 +60,13 @@ export class SearchComponent implements OnInit {
   selectedSearchMethod: string = '0';
   searchMethods: any[] = [
     {value: '0', viewValue: 'L2FC Range'},
-    // {value: '1', viewValue: 'Top 500'}
+    {value: '1', viewValue: 'Top 500'}
+  ];
+
+  selectedRegulationType: string = '0';
+  regulationTypes: any[] = [
+    {value: '0', viewValue: 'Upregulated'},
+    {value: '1', viewValue: 'Downregulated'}
   ];
 
   showSigLegend: boolean = false;
@@ -175,16 +181,48 @@ export class SearchComponent implements OnInit {
         const a = document.createElement('a');
         a.setAttribute('style', 'display:none;');
         document.body.appendChild(a);
-        a.download = 'ol_gene_exp_search.xlsx';
+        a.download = 'ol_gene_exp_search_range.xlsx';
         a.href = URL.createObjectURL(data);
         a.target = '_blank';
         a.click();
         document.body.removeChild(a);
       });
 
-    } else if (this.selectedSearchMethod == '1') { // TOP
+    } 
+    else if (this.selectedSearchMethod == '1') { // TOP
 
+      if (this.selectedRegulationType == '0') { // upreg
 
+        this.genesService.downloadTopUpregulated().subscribe((data: any) => {
+          this.spinnerService.hide();
+  
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = 'ol_gene_exp_search_top500_upregulated.xlsx';
+          a.href = URL.createObjectURL(data);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+        });
+
+      } 
+      else if (this.selectedRegulationType == '1') { // downreg
+
+        this.genesService.downloadTopDownregulated().subscribe((data: any) => {
+          this.spinnerService.hide();
+  
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = 'ol_gene_exp_search_top500_downregulated.xlsx';
+          a.href = URL.createObjectURL(data);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+        });
+
+      }
 
     }
   }
