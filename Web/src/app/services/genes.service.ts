@@ -54,4 +54,20 @@ export class GenesService {
         return this.http.get(url, { responseType: 'blob' });
         
     }
+
+    downloadTopUpregulated() {
+
+        let url = this.baseUrl + `/download-top?num=500&reg=up`;
+        
+        return this.http.get(url, { responseType: 'blob' });
+        
+    }
+
+    downloadTopDownregulated() {
+
+        let url = this.baseUrl + `/download-top?num=500&reg=down`;
+        
+        return this.http.get(url, { responseType: 'blob' });
+        
+    }
 }

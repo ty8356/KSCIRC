@@ -59,7 +59,14 @@
   
       <!-- TOP COUNT SELECTOR -->
       <div class="one-line-header" *ngIf="selectedSearchMethod == '1'">
-        
+        <mat-form-field appearance="fill">
+          <mat-label>Regulation Type</mat-label>
+          <mat-select [(value)]="selectedRegulationType">
+            <mat-option *ngFor="let regulationType of regulationTypes" [value]="regulationType.value">
+              {{regulationType.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
   
       <div>
