@@ -1,0 +1,1 @@
+This dashboard accompanies a research publication and allows for visualization of tens of thousands of records. Additionally, custom filters allow for the exportation of data to Excel files with the click of a button. The database for this site was created via a custom console application that read an Excel file and inserted each record into a SQL server database.
